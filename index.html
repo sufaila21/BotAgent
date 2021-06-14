@@ -10,18 +10,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/style.css" rel="stylesheet">
-  <script src="../js/jquery-2.1.1.min.js"></script>
-  <script src="../js/strophe.js"></script>
-  <script src="../js/strophe.disco.min.js?v=1"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <script src="js/strophe.js"></script>
+  <script src="js/strophe.disco.min.js?v=1"></script>
   <script src="https://meet.jit.si/external_api.js"></script>
   <!-- <script src="../../lib-jitsi-meet.min.js"></script> -->
-  <script src="../js/lib-jitsi-meet.min.js"></script>
-  <!-- <script src="../js/milli_client_new.js"></script> -->
-   <script src="../js/customer_jitsi.js"></script>
-  <script src="../js/botcode.js"></script>
-  <script src="../js/chatpage.js"></script>
+  <script src="js/lib-jitsi-meet.min.js"></script>
+  <!-- <script src="js/milli_client_new.js"></script> -->
+   <script src="js/customer_jitsi.js"></script>
+  <script src="js/botcode.js"></script>
+  <script src="js/chatpage.js"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/strophe.js/1.2.3/strophe.min.js'></script>
   <!-- muc plugin -->
   <script src='https://rawgit.com/metajack/strophejs-plugins/master/muc/strophe.muc.js'></script>
@@ -241,7 +241,7 @@ function sendtxtmsg() {
       var timenow = new Date().toLocaleTimeString();
       userDiv.id = "user";
       userDiv.className = 'msg left-msg';
-      userDiv.innerHTML = `<div class="msg-img" style="background-image: url(../images/agent.svg)"></div><div class="msg-bubble"><div class="msg-info"><div  class="msg-info-time">${timenow}</div></div><div class="msg-text">Thank you for taking the time to complete the survey. Have a good day.</div></div>`;
+      userDiv.innerHTML = `<div class="msg-img" style="background-image: url(images/agent.svg)"></div><div class="msg-bubble"><div class="msg-info"><div  class="msg-info-time">${timenow}</div></div><div class="msg-text">Thank you for taking the time to complete the survey. Have a good day.</div></div>`;
       mainDiv.appendChild(userDiv);
 
 
@@ -268,16 +268,16 @@ init();
 
   <div class="chat-toggler">
     <span class="initial-chat-close" data-toggle="tooltip" data-placement="left" title="Close"><img
-        src="../images/cancel.svg" alt="cancel-icon"></span>
+        src="images/cancel.svg" alt="cancel-icon"></span>
     <div class="initial-chat">Hello, how may I help you? </div>
-    <span class="agent-image-wrapper"><img src="../images/agent.svg"> </span>
+    <span class="agent-image-wrapper"><img src="images/agent.svg"> </span>
   </div>
 
   <section id="main" class="msger" style="display:none;">
     <header class="msger-header">
       <div class="msger-header-settings">
         <button type="button" class="settings-btn dropdown-toggle" data-toggle="dropdown">
-          <img src="../images/more.svg" alt="settings-icon" data-toggle="tooltip" data-placement="right" title="More">
+          <img src="images/more.svg" alt="settings-icon" data-toggle="tooltip" data-placement="right" title="More">
         </button>
         <ul class="dropdown-menu settings-menu">
           <li><a href="#">Settings</a></li>
@@ -285,18 +285,18 @@ init();
         </ul>
       </div>
       <div class="msger-header-title">
-        <span class="logo"><img src="../images/logo.png" alt="logo"></span>
+        <span class="logo"><img src="images/logo.png" alt="logo"></span>
       </div>
       <div class="msger-header-options">
         <button class="minimize-btn ctl-btn" data-toggle="tooltip" data-placement="left" title="Minimize"><img
-            src="../images/minus.svg" alt="minimize-icon"></button>
+            src="images/minus.svg" alt="minimize-icon"></button>
         <button class="close-btn ctl-btn" data-toggle="tooltip" data-placement="left" title="Close"><img
-            src="../images/cancel.svg" alt="cancel-icon"></button>
+            src="images/cancel.svg" alt="cancel-icon"></button>
       </div>
     </header>
     <div class="agent-block" id="agentTab" style="display:none;">
       <div class="agent-info">
-        <div class="msg-img" style="background-image: url(../images/agent.svg)"></div>
+        <div class="msg-img" style="background-image: url(images/agent.svg)"></div>
         <div class="agent-details">
           <h3 class="agent-name">Agent Name</h3>
           <span class="agent-designation">Service Agent</span>
@@ -304,7 +304,7 @@ init();
       </div>
       <div class="agent-options">
         <!-- <button class="agent-option-controls" data-toggle="tooltip"
-        data-placement="left" title="connect agent"><img src="../images/speak2agent.png" alt="speakdirectlogo"></button> -->
+        data-placement="left" title="connect agent"><img src="images/speak2agent.png" alt="speakdirectlogo"></button> -->
         <button class="agent-option-controls audio-call" onclick="playAudio(),AudioCall()" data-toggle="tooltip"
           data-placement="left" title="Audio Call"><i class="fa fa-phone" aria-hidden="true"></i></button>
         <button class="agent-option-controls video-call" onclick="playAudio(),VideoCall('client')" data-toggle="tooltip"
@@ -314,7 +314,7 @@ init();
     <main class="msger-chat">
       <div id="mainChat">
         <div id="botMsg" class="msg left-msg">
-          <div class="msg-img" style="background-image: url(../images/bot.png); background-size: 80%;"></div>
+          <div class="msg-img" style="background-image: url(images/bot.png); background-size: 80%;"></div>
          <div class="msg-bubble welcome-msg">
             <div class="msg-info">
               <div class="msg-info-name">Tia</div>
@@ -359,7 +359,7 @@ init();
         </div>
         <div class="form-check">
           <p class="mandatory-field">Is this the first time you have chatted with us about this case?<img
-              src="../images/asterisk.svg" class="required-icon" alt="required-icon"></p>
+              src="images/asterisk.svg" class="required-icon" alt="required-icon"></p>
           <input class="form-check-input" type="radio" name="answer1" id="answer1" value="option1">
           <label class="form-check-label" for="answer1">
             Yes
@@ -431,7 +431,7 @@ init();
           <h4> Audio Call...</h4>
           <div class="audio-call-pic">
             <div class="img-wrap">
-              <img src="../images/boy.svg" class="required-icon" alt="required-icon">
+              <img src="images/boy.svg" class="required-icon" alt="required-icon">
             </div>
           </div>
         </div>
@@ -474,18 +474,18 @@ init();
        <!-- <form class="file-uploader" data-toggle="tooltip" enctype="multipart/form-data" data-placement="left" title="Attachment">
           <label for="upload">
             <input type="file" id="upload" onchange="getFileName(this.value)" multiple>
-            <span class="img-holder"><img src="../images/sendAttachment.png" alt="attachment-image" 
+            <span class="img-holder"><img src="images/sendAttachment.png" alt="attachment-image" 
       ></span>
           </form> -->
           <div class="file-uploader" data-toggle="tooltip" data-placement="left" title="Attachment">
             <label for="myFile">
-              <span class="img-holder"><img src="../images/sendAttachment.png" alt="attachment-image"></span>
+              <span class="img-holder"><img src="images/sendAttachment.png" alt="attachment-image"></span>
             </label>
             <input type="file" id="myFile" multiple size="50" onchange="getFileDetails()">
           </div>
-        <!-- <button data-toggle="tooltip" data-placement="left" title="Attachment"><span class="img-holder"><img src="../images/sendAttachment.png" alt="attachment-image"></span></button>	 -->
+        <!-- <button data-toggle="tooltip" data-placement="left" title="Attachment"><span class="img-holder"><img src="images/sendAttachment.png" alt="attachment-image"></span></button>	 -->
         <button type="button"	
-    class="msger-send-btn" onclick="sendtxtmsg(),sendFiles()" data-toggle="tooltip" data-placement="left" title="Send"><span class="img-holder"><img src="../images/sendMessage.png" alt="send-image"></span></button>	
+    class="msger-send-btn" onclick="sendtxtmsg(),sendFiles()" data-toggle="tooltip" data-placement="left" title="Send"><span class="img-holder"><img src="images/sendMessage.png" alt="send-image"></span></button>	
       </div>
       <div class="filename-holder">
         <ul id ="fileList">
@@ -517,8 +517,8 @@ init();
       <!--Chat transcript Modal end-->
   </section>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/script.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
   <script>
     $(document).ready(function() {
       $('.chat-toggler .agent-image-wrapper,.chat-toggler .initial-chat').click(function() {
