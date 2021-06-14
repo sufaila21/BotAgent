@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OneVue</title>
+  <link rel="icon" type="image/png" href="./images/favicon.png" sizes="16x16">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/strophe.js"></script>
+  <script src="../js/strophe.disco.min.js?v=1"></script>
+  <script src="https://meet.jit.si/external_api.js"></script>
+  <!-- <script src="../../lib-jitsi-meet.min.js"></script> -->
+  <script src="../js/lib-jitsi-meet.min.js"></script>
+  <!-- <script src="../js/milli_client_new.js"></script> -->
+   <script src="../js/customer_jitsi.js"></script>
+  <script src="../js/botcode.js"></script>
+  <script src="../js/chatpage.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/strophe.js/1.2.3/strophe.min.js'></script>
+  <!-- muc plugin -->
+  <script src='https://rawgit.com/metajack/strophejs-plugins/master/muc/strophe.muc.js'></script>
+
+  <script>
+
+
+
+    chatinit('milli1@milli.thebanknet.com', 'milli1');
+    // chatinit('test5','test5');
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVPSPZP8VB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MVPSPZP8VB');
+
+    let isBot = true;
+    let resize = true;
+
+    function resizeScreen() {
+      //alert("in resize function"+ resize);
+      const videoDiv = document.getElementById("videoTab");
+      const mainDiv = document.getElementById("main");
+      if (resize == true) {
+        $('body').append(videoDiv);
+        resize = false;
+      } else {
+        mainDiv.appendChild(videoDiv);
+        resize = true;
+      }
+
+
+    }
+	
+	
+	document.addEventListener("DOMContentLoaded", () => {
+	const inputField = document.getElementById("input")
+	inputField.addEventListener("keydown", function(e) {
+		if (e.code === 13 || e.key === "Enter") {
+			sendtxtmsg();
+			
+    }
+	
+  });
+}); 
+	
+	
+	
+function myFunction() {
+  
+  if (e.key === "Enter") 
+                sendtxtmsg();
+}
+var botresponse='';	
+var botresponse1='';
+var cName = '';
+var cEmail = '';
+var cQuestion = '';
+var count=0; 
+var fileName='';
+let withagent=false; 
+var sendFile =false;
+//setTimeout(()=> {sendtxtmsg()},60000);
+
+async function sendFiles(){
+if(sendFile){
+	const urlFile= await addAttachment(fileName);
+		  console.log('urlFile :::',urlFile);
+		  }
+	sendFile=false;	 
+    fileName='';	
+	 document.getElementById("input").value = '';
+	 var content = document.getElementById("fileList");
+	   content.innerHTML =  ''
+}   
+function sendtxtmsg() {
+    $('#clientDetails').hide();
+	 $('.msger-chat').scrollTop($('.msger-chat')[0].scrollHeight);
+        cName = document.getElementById("clientName").value;
+        cEmail = document.getElementById("clientEmail1").value;
+        cQuestion = document.getElementById("clientQuestion").value;
+		 var inputValue = document.getElementById("input");
+		var msg ='';
+		if(count==0){
+           msg = "Data:" + cName + ":" + cEmail + ":" + cQuestion;
+	     }else{
+     
+	          msg=inputValue.value;
+	      }
+		   if(gotoAgent()){
+		   isBot = false;
+		   }
+	  if (null != msg){
+       if (isBot == true ) {
+	  // alert('gotoAgent::' +gotoAgent());
+	   count++;
+	      startBotChat(msg);
+		 
+       
+       } else {
+	     
+		      startchatwithAgent()
+             //sendMessage(inputValue.value);
+			
+       }
+      document.getElementById("input").value = '';
+	  
+	  }
+	  
+    }
+    
+	function getFileDetails(){
+	  sendFile=true;
+     var x = document.getElementById("myFile");
+     var txt = "";
+	 var content = document.getElementById("fileList");
+    if ('files' in x) {
+     if (x.files.length == 0) {
+      txt = "Select one or more files.";
+    } else {
+      for (var i = 0; i < x.files.length; i++) {
+        txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+		//content.innerHTML += i + '--' + array[i] + '<br>';
+        var file = x.files[i];
+		 console.log('file :::', x.files[i]);
+		 fileName=x.files[i];
+		
+		 content.innerHTML +=  '<li>'+file.name +'<span class="delete fa fa-trash-o"></span></li>'
+		 
+        if ('name' in file) {
+          txt += "name: " + file.name + "<br>";
+        }
+        if ('size' in file) {
+          txt += "size: " + file.size + " bytes <br>";
+        }
+      }
+    }
+  } 
+  else {
+    if (x.value == "") {
+      txt += "Select one or more files.";
+    } else {
+      txt += "The files property is not supported by your browser!";
+      txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+    }
+  }
+  document.getElementById("input").innerHTML = txt;
+ 
+  console.log('txt :::',txt);
+}
+	
+	function getFileName(fileNName){
+	var form = document.querySelector('form');
+    formData = new FormData(form);
+	console.log('formData',formData.getAll);
+	for (var p of formData) {
+   console.log('formData p',p);
+  }
+
+	fileName=fileNName
+	var fName =document.getElementById("upload").value ;
+	 filename = fName.split(/[\\/]/g).pop();
+	//var filename='/C:/Users/Rekha/Desktop/RChat.pdf';
+	console.log('filename',filename);
+	console.log('filename  New',fileNName);
+     
+	   document.getElementById("input").value =filename;
+	   
+     }
+    function startchatwithAgent() {
+	var msg ='';
+	let sendbotconv= false;
+	var msg2='';
+	var inputValue = document.getElementById("input");
+     if(!withagent){
+	  var cList=getBotConvList();
+	  //alert('cList.length:: '+cList.length);
+	  if(cList.length>0){
+	   for (var i=0;i<cList.length;i++){
+		  console.log('cList::',cList[i]);
+		  if(0 != msg2.length){
+		  msg2=msg2+';'+cList[i].messagebody+","+cList[i].type+","+cList[i].time;
+		  }else{
+		  msg2=cList[i].messagebody+","+cList[i].type+","+cList[i].time;
+		  }
+	  }
+	  }
+	 // console.error('cList:::'+cList[1].messagebody);
+	   console.error('msg2:::'+msg2);
+      msg = "Data::" + cName + "::" + cEmail + "::" + cQuestion+"::"+msg2;
+      $('#clientDetails').hide();
+      $('#agentTab').show();
+      $('#botMsg').hide();
+      init();
+	  withagent=true;
+	  sendbotconv= true;
+	  }else{
+	   msg=inputValue.value;
+	  }
+	  if(!sendFile)
+      	  sendMessage(msg);
+		  //if(sendbotconv)
+		 // sendMessage('BotConv:'+cList);
+      isBot = false;
+
+    }
+
+    function saveSurvey() {
+      $('#surveyAtEnd').hide();
+
+      const mainDiv = document.getElementById("mainChat");
+      let userDiv = document.createElement("div");
+      var timenow = new Date().toLocaleTimeString();
+      userDiv.id = "user";
+      userDiv.className = 'msg left-msg';
+      userDiv.innerHTML = `<div class="msg-img" style="background-image: url(../images/agent.svg)"></div><div class="msg-bubble"><div class="msg-info"><div  class="msg-info-time">${timenow}</div></div><div class="msg-text">Thank you for taking the time to complete the survey. Have a good day.</div></div>`;
+      mainDiv.appendChild(userDiv);
+
+
+
+    }
+
+
+    function showChatbot() {
+      $('#main').show();
+      var timeNow = new Date().toLocaleTimeString();
+      document.getElementById("firstMsg").innerHTML = timeNow;
+
+    }
+
+
+
+  </script>
+
+</head>
+<!--<script>
+init();	
+</script>	 -->
+<body style="background: transparent;">
+
+  <div class="chat-toggler">
+    <span class="initial-chat-close" data-toggle="tooltip" data-placement="left" title="Close"><img
+        src="../images/cancel.svg" alt="cancel-icon"></span>
+    <div class="initial-chat">Hello, how may I help you? </div>
+    <span class="agent-image-wrapper"><img src="../images/agent.svg"> </span>
+  </div>
+
+  <section id="main" class="msger" style="display:none;">
+    <header class="msger-header">
+      <div class="msger-header-settings">
+        <button type="button" class="settings-btn dropdown-toggle" data-toggle="dropdown">
+          <img src="../images/more.svg" alt="settings-icon" data-toggle="tooltip" data-placement="right" title="More">
+        </button>
+        <ul class="dropdown-menu settings-menu">
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+      <div class="msger-header-title">
+        <span class="logo"><img src="../images/logo.png" alt="logo"></span>
+      </div>
+      <div class="msger-header-options">
+        <button class="minimize-btn ctl-btn" data-toggle="tooltip" data-placement="left" title="Minimize"><img
+            src="../images/minus.svg" alt="minimize-icon"></button>
+        <button class="close-btn ctl-btn" data-toggle="tooltip" data-placement="left" title="Close"><img
+            src="../images/cancel.svg" alt="cancel-icon"></button>
+      </div>
+    </header>
+    <div class="agent-block" id="agentTab" style="display:none;">
+      <div class="agent-info">
+        <div class="msg-img" style="background-image: url(../images/agent.svg)"></div>
+        <div class="agent-details">
+          <h3 class="agent-name">Agent Name</h3>
+          <span class="agent-designation">Service Agent</span>
+        </div>
+      </div>
+      <div class="agent-options">
+        <!-- <button class="agent-option-controls" data-toggle="tooltip"
+        data-placement="left" title="connect agent"><img src="../images/speak2agent.png" alt="speakdirectlogo"></button> -->
+        <button class="agent-option-controls audio-call" onclick="playAudio(),AudioCall()" data-toggle="tooltip"
+          data-placement="left" title="Audio Call"><i class="fa fa-phone" aria-hidden="true"></i></button>
+        <button class="agent-option-controls video-call" onclick="playAudio(),VideoCall('client')" data-toggle="tooltip"
+          data-placement="left" title="Video Call"><i class="fa fa-video-camera" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <main class="msger-chat">
+      <div id="mainChat">
+        <div id="botMsg" class="msg left-msg">
+          <div class="msg-img" style="background-image: url(../images/bot.png); background-size: 80%;"></div>
+         <div class="msg-bubble welcome-msg">
+            <div class="msg-info">
+              <div class="msg-info-name">Tia</div>
+              <div class="msg-info-time" id="firstMsg"></div>
+            </div>
+            <div class="msg-text">
+             Hi, Welcome to OneVueChat! How may I help you?
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <!-- client details form starts-->
+      <div id="clientDetails" class="client-details">
+        <div class="top-icon">
+          <i class="fa fa-user-o" aria-hidden="true"></i>
+        </div>
+        <div class="form-group">
+          <label for="clientName">Name (Optional)</label>
+          <input type="text" class="form-control" id="clientName" placeholder="Name">
+        </div>
+        <div class="form-group">
+           <label for="clientEmail1">Email (Optional)</label>
+          <input type="email" class="form-control" id="clientEmail1" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="clientQuestion">Question</label>
+          <input type="text" class="form-control" id="clientQuestion" placeholder="Question">
+        </div>
+        <div class="button-wrapper">
+          <button type="submit" class="btn btn-primary mb-2" onclick="sendtxtmsg()">Start Chat</button>
+        </div>
+      </div>
+      <!-- client details form ends-->
+      <!-- survey details form starts-->
+      <div class="survey-box" id="surveyAtEnd" style="display:none;">
+        <div class="top-icon">
+          <i class="fa fa-star-o" aria-hidden="true"></i>
+        </div>
+        <div class="form-check">
+          <p class="mandatory-field">Is this the first time you have chatted with us about this case?<img
+              src="../images/asterisk.svg" class="required-icon" alt="required-icon"></p>
+          <input class="form-check-input" type="radio" name="answer1" id="answer1" value="option1">
+          <label class="form-check-label" for="answer1">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="answer1" id="answer2" value="option2">
+          <label class="form-check-label" for="answer2">
+            No
+          </label>
+        </div>
+        <div class="form-check">
+          <p>Was the case resolved during the chat?</p>
+          <input class="form-check-input" type="radio" name="answer2" id="answer3" value="option3">
+          <label class="form-check-label" for="answer3">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="answer2" id="answer4" value="option4">
+          <label class="form-check-label" for="answer4">
+            No
+          </label>
+        </div>
+        <div class="like-dislike">
+          <p>Would you rate this chat?</p>
+          <button class="btn" id="like" data-toggle="tooltip" data-placement="right" title="Rate as Good"><i
+              class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i></button>
+          <button class="btn" id="dislike" data-toggle="tooltip" data-placement="right" title="Rate as Bad"><i
+              class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i></button>
+        </div>
+        <div class="button-wrapper">
+          <button type="submit" class="btn btn-primary mb-2" data-toggle="modal" onclick="saveSurvey()">Submit</button>
+        </div>
+      </div>
+      <div id="videoAlertDiv" class='popup' style="display:none;">
+        <h4>Incoming Video call.... <h4>
+
+            <div>
+              <Button type="button" class="button accept" onclick="acceptVideoCall()">
+                <i class="fa fa-phone" aria-hidden="true"></i></Button>
+              <Button type="button" class="button reject" onclick="rejectVideoCall()">
+                <i class="fa fa-phone" aria-hidden="true"></i> </Button>
+            </div>
+      </div>
+
+      <div id="audioAlertDiv" class='popup' style="display:none;">
+        <h4>Incoming Audio call.... <h4>
+
+            <div>
+              <Button type="button" class="button accept" onclick="acceptAudioCall()">
+                <i class="fa fa-phone" aria-hidden="true"></i></Button>
+              <Button type="button" class="button reject" onclick="rejectAudioCall()">
+                <i class="fa fa-phone" aria-hidden="true"></i> </Button>
+            </div>
+      </div>
+
+      <div id="discDiv" class='popup' style="display:none;">
+        <h4>Call Disconnect by Agent....... <h4>
+            <div>
+              <Button type="button" class="button accept" onclick="acceptDiscCall()">
+                OK</Button>
+
+            </div>
+      </div>
+      <!-- audio chat screen starts-->
+      <div id="audioTab" class="audio-chat call-options" style="display:none">
+        <div class="audio-chat-image-wrapper">
+          <h4> Audio Call...</h4>
+          <div class="audio-call-pic">
+            <div class="img-wrap">
+              <img src="../images/boy.svg" class="required-icon" alt="required-icon">
+            </div>
+          </div>
+        </div>
+        <div class="call-controls">
+          <button class="mute" data-toggle="tooltip" data-placement="top" onclick="toggle_audio()" title="Mute/Un-Mute"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+          <button class="chat-btn" data-toggle="tooltip" data-placement="top" title="Chat"><i class="fa fa-commenting-o" aria-hidden="true"></i></button>
+          <button class="full-screen" data-toggle="tooltip" data-placement="top" title="Full Screen"><i class="fa fa-window-restore" aria-hidden="true"></i></button>
+          <button class="call reject audio-call call-animation" data-toggle="tooltip" onclick="Call_Disconnect()" data-placement="top" title="End Call"><i class="fa fa-phone" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <!-- audio chat screen ends-->
+
+
+      <!-- video chat screen starts-->
+      <div id="videoTab" class="video-chat call-options" style="display:none">
+        <div class="video-chat-image-wrapper">
+          <div id='client-remote-meeting-container' class="remote-video">
+
+          </div>
+          <div class="local-video__wrapper" id='client-local-meeting-container'>
+            
+          </div>
+
+        </div>
+        <div class="call-controls">
+          <button class="mute" data-toggle="tooltip" onclick="toggle_audio()" data-placement="top" title="Mute/Un-Mute"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+          <button class="video-camera active" onclick="toggle_video()" data-toggle="tooltip" data-placement="top" title="Video On/Off"><i class="fa fa-video-camera" aria-hidden="true"></i></button>
+          <button class="screen-share" onclick="switchVideo()" data-toggle="tooltip" data-placement="top" title="Screen Share" ><i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+        <!--  <button class="chat-btn" data-toggle="tooltip" data-placement="top" title="chat"><i class="fa fa-commenting-o" aria-hidden="true"></i></button> -->
+          <button class="full-screen" data-toggle="tooltip" data-placement="top" onclick="resizeScreen()" title="Full Screen"><i class="fa fa-window-restore" aria-hidden="true"></i></button>
+          <button class="call reject video-call call-animation" data-toggle="tooltip"   onclick="Call_Disconnect()" data-placement="top" title="End Call"><i class="fa fa-phone" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <!-- video chat screen ends-->
+	  </main>
+    <div class="msger-inputarea">	
+      <input id="input" type="text" class="msger-input" placeholder="Enter your message...">	
+      <div class="msger-controls">	
+        <!-- <button data-toggle="tooltip" data-placement="left" title="screen share"><i class="fa fa-share-square-o" aria-hidden="true"></i></button> -->
+       <!-- <form class="file-uploader" data-toggle="tooltip" enctype="multipart/form-data" data-placement="left" title="Attachment">
+          <label for="upload">
+            <input type="file" id="upload" onchange="getFileName(this.value)" multiple>
+            <span class="img-holder"><img src="../images/sendAttachment.png" alt="attachment-image" 
+      ></span>
+          </form> -->
+          <div class="file-uploader" data-toggle="tooltip" data-placement="left" title="Attachment">
+            <label for="myFile">
+              <span class="img-holder"><img src="../images/sendAttachment.png" alt="attachment-image"></span>
+            </label>
+            <input type="file" id="myFile" multiple size="50" onchange="getFileDetails()">
+          </div>
+        <!-- <button data-toggle="tooltip" data-placement="left" title="Attachment"><span class="img-holder"><img src="../images/sendAttachment.png" alt="attachment-image"></span></button>	 -->
+        <button type="button"	
+    class="msger-send-btn" onclick="sendtxtmsg(),sendFiles()" data-toggle="tooltip" data-placement="left" title="Send"><span class="img-holder"><img src="../images/sendMessage.png" alt="send-image"></span></button>	
+      </div>
+      <div class="filename-holder">
+        <ul id ="fileList">
+        
+        </ul>
+      </div>	
+    </div>
+	  <!-- messenger chat form ends-->
+	  
+	   <!--Chat transcript Modal start-->
+      <div class="modal fade" id="chatTranscript" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <div class="icon-wrapper">
+                <span><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+              </div>
+              <p>Chat transcript will be sent to <span>shinto.matthew@gmail.com</span> once the chat is finished.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Hide</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Chat transcript Modal end-->
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.chat-toggler .agent-image-wrapper,.chat-toggler .initial-chat').click(function() {
+        console.log(window.parent)
+          $('#oneview-chatbot').css( { height: `calc(100vh - 30px)` } );
+      });
+      // $('.msger-header-options .close-btn').click(function() {
+      //     $('#oneview-chatbot').css( { height: `auto` } );
+      // });
+      top.postMessage('hello', 'file:///C:/Users/Sufail%20A/Desktop/projects/object-data-snippet-code/Client-html/agent.html');
+})
+  </script>
+</body>
+
+</html>
