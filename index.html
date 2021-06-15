@@ -266,14 +266,7 @@ init();
 </script>	 -->
 <body style="background: transparent;">
 
-  <div class="chat-toggler">
-    <span class="initial-chat-close" data-toggle="tooltip" data-placement="left" title="Close"><img
-        src="images/cancel.svg" alt="cancel-icon"></span>
-    <div class="initial-chat">Hello, how may I help you? </div>
-    <span class="agent-image-wrapper"><img src="images/agent.svg"> </span>
-  </div>
-
-  <section id="main" class="msger" style="display:none;">
+  <section id="main" class="msger">
     <header class="msger-header">
       <div class="msger-header-settings">
         <button type="button" class="settings-btn dropdown-toggle" data-toggle="dropdown">
@@ -287,12 +280,7 @@ init();
       <div class="msger-header-title">
         <span class="logo"><img src="images/logo.png" alt="logo"></span>
       </div>
-      <div class="msger-header-options">
-        <button class="minimize-btn ctl-btn" data-toggle="tooltip" data-placement="left" title="Minimize"><img
-            src="images/minus.svg" alt="minimize-icon"></button>
-        <button class="close-btn ctl-btn" data-toggle="tooltip" data-placement="left" title="Close"><img
-            src="images/cancel.svg" alt="cancel-icon"></button>
-      </div>
+     
     </header>
     <div class="agent-block" id="agentTab" style="display:none;">
       <div class="agent-info">
@@ -519,18 +507,6 @@ init();
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/script.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.chat-toggler .agent-image-wrapper,.chat-toggler .initial-chat').click(function() {
-        console.log(window.parent)
-          $('#oneview-chatbot').css( { height: `calc(100vh - 30px)` } );
-      });
-      // $('.msger-header-options .close-btn').click(function() {
-      //     $('#oneview-chatbot').css( { height: `auto` } );
-      // });
-      top.postMessage('hello', 'file:///C:/Users/Sufail%20A/Desktop/projects/object-data-snippet-code/Client-html/agent.html');
-})
-  </script>
-</body>
 
+</body>
 </html>

@@ -63,11 +63,6 @@ $(document).ready(function() {
         //$('.audio-chat ').css('display', 'flex');
     });
 
-    /*Chat open screen*/
-    $('.chat-toggler .agent-image-wrapper,.chat-toggler .initial-chat,.close-btn,.minimize-btn').click(function() {
-        $('.msger').slideToggle("slow");
-        $('.msger').css('display', 'flex');
-    });
 
     /*Initial chat closer*/
 	$( ".initial-chat-close" ).click(function() {
