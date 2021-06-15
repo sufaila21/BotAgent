@@ -178,12 +178,12 @@ function addChat(product) {
   let userDiv = document.createElement("div");
   userDiv.id = "user";
  
-	if(product =='FALLBACK' || gotoagent==true){
+  if(product.includes("again") || product.includes("sorry") || product.includes("repeat") || product.includes("rephrase") || gotoagent==true){
      product='Please wait while your request is forwarded to a live agent';
 	 gotoagent=true;
 	 
   }
-  $(".msger-chat").animate({ scrollTop: $('.msger-chat').prop("scrollHeight")}, 1000);
+  
  var timenow =new Date().toLocaleTimeString();
 
  
@@ -287,7 +287,7 @@ function createMessageObject(msg,type){
    function  getIntentResponse(msg){
 	// alert("In getIntentResponse");
 	   //var urls =Env_Properties.MILLI_SERVER + "getagentUid?userId=milli3@milli.thebanknet.com";
-	var urls="http://localhost:8383/chat/dialog";
+	var urls="https://demo.thebanknet.com:6625/milli/Dialog";
 	//var urls="https://cors-anywhere.herokuapp.com/https://milliqa.thebanknet.com:6625/milli/Dialog";
 	var discount=msg;
 
